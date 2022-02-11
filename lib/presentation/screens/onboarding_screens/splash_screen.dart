@@ -92,7 +92,7 @@ class SplashScreen extends StatelessWidget {
           backgroundColor: MyColors.gold,
           title: 'MASTER BUTTON',
           onTap: () {
-            Navigator.of(context).pushNamed(registerScreen);
+            Navigator.of(context).pushNamed(registerRoute);
           },
         ),
       ],
@@ -140,14 +140,14 @@ class SplashScreen extends StatelessWidget {
                 backgroundColor: Colors.black,
                 title: 'SIGN IN',
                 onTap: () {
-                  Navigator.of(context).pushNamed(loginScreen);
+                  Navigator.of(context).pushNamed(loginRoute);
                 },
               ),
               primaryButton(
                 backgroundColor: MyColors.gold,
                 title: 'CREATIVE ACCOUNT',
                 onTap: () {
-                  Navigator.of(context).pushNamed(registerScreen);
+                  Navigator.of(context).pushNamed(registerRoute);
                 },
               ),
             ],

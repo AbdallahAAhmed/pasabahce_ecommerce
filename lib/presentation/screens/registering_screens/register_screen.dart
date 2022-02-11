@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
 import 'package:pasabahce/constraints/route_string.dart';
+import 'package:pasabahce/presentation/widgets/main_container.dart';
 import 'package:pasabahce/presentation/widgets/primary_button.dart';
 import 'package:pasabahce/presentation/widgets/text_form_field.dart';
 
 // ignore: must_be_immutable
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
 
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  bool visibilityPassword = false;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    print(size.height.toInt());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -29,25 +38,13 @@ class RegisterScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-          ),
-        ),
+      body: mainContainer(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,7 +68,7 @@ class RegisterScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: size.height/2,
+                height: size.height / 2,
                 width: double.infinity,
                 child: Form(
                   key: _formKey,
@@ -102,7 +99,7 @@ class RegisterScreen extends StatelessWidget {
                       // const SizedBox(height: 20),
                       buildTextFormField(
                         controller: passwordController,
-                        obscureText: true,
+                        obscureText: visibilityPassword ? null : true,
                         keyboardType: TextInputType.text,
                         lableText: 'Password',
                         valid: (value) {
@@ -110,8 +107,15 @@ class RegisterScreen extends StatelessWidget {
                             return 'Please fill the Password';
                           }
                         },
-                        suffix: const Icon(
-                          Icons.visibility_off,
+                        suffix: IconButton(
+                          icon: Icon(
+                             visibilityPassword ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: (){
+                            setState(() {
+                              visibilityPassword = !visibilityPassword;
+                            });
+                          },
                         ),
                       ),
                       // const SizedBox(height: 20),
@@ -128,18 +132,17 @@ class RegisterScreen extends StatelessWidget {
                       primaryButton(
                           backgroundColor: MyColors.brown,
                           title: 'SIGN UP',
-                          onTap: (){
-                            if(_formKey.currentState!.validate()){
-                                Navigator.of(context).pushNamed(loadingScreen);
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.of(context).pushNamed(loadingRoute);
                             }
-                          }
-                      ),
+                          }),
                     ],
                   ),
                 ),
               ),
               SizedBox(
-                height: size.height.toInt() >= 700 ? size.height/5  : null,
+                height: size.height.toInt() >= 700 ? size.height / 5 : null,
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -168,7 +171,8 @@ class RegisterScreen extends StatelessWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.of(context).pushReplacementNamed(loginScreen),
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(loginRoute),
                           child: const Text(
                             'Sign In',
                             style: TextStyle(

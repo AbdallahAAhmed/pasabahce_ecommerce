@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
 import 'package:pasabahce/constraints/route_string.dart';
+import 'package:pasabahce/presentation/widgets/main_container.dart';
 import 'package:pasabahce/presentation/widgets/primary_button.dart';
 import 'package:pasabahce/presentation/widgets/text_form_field.dart';
 
@@ -13,12 +14,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
 
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool checkBoxValue = false;
+  bool visibilityPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: const Text('Login'),
         centerTitle: true,
       ),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        margin: const EdgeInsets.only(top: 20),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-          ),
-        ),
+      body: mainContainer(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       buildTextFormField(
                         controller: passwordController,
-                        obscureText: true,
+                        obscureText: visibilityPassword ? null : true,
                         keyboardType: TextInputType.text,
                         lableText: 'Password',
                         valid: (value) {
@@ -96,8 +87,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             return 'Please fill the Password';
                           }
                         },
-                        suffix: const Icon(
-                          Icons.visibility_off,
+                        suffix: IconButton(
+                          icon: Icon(
+                             visibilityPassword ? Icons.visibility : Icons.visibility_off,
+                          ),
+                          onPressed: (){
+                            setState(() {
+                              visibilityPassword = !visibilityPassword;
+                            });
+                          },
                         ),
                       ),
                       Row(
@@ -122,10 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          const Text(
-                            'Forget Password?',
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pushNamed(forgetPasswordRoute),
+                            child: const Text(
+                              'Forget Password?',
                             style: TextStyle(
+                              color: Colors.black,
                               fontSize: 14,
+                            ),
                             ),
                           ),
                         ],
@@ -172,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.of(context).pushReplacementNamed(registerScreen),
+                          onPressed: () => Navigator.of(context).pushReplacementNamed(registerRoute),
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(

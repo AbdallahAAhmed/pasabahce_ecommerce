@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
 import 'package:pasabahce/constraints/route_string.dart';
@@ -17,7 +16,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 3),
-            () => Navigator.of(context).pushReplacementNamed(loginScreen));
+            () => Navigator.of(context).pushReplacementNamed(loginRoute));
   }
   @override
   Widget build(BuildContext context) {

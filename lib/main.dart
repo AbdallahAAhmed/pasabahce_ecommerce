@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pasabahce/app_router.dart';
 import 'package:pasabahce/constraints/route_string.dart';
 
-String initialRoute = registerScreen;
+String initialRoute = registerRoute;
 
 void main() {
   runApp(MyApp(appRouter: AppRouter()));
