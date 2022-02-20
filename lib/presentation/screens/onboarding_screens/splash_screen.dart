@@ -25,6 +25,7 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
+            fontFamily: 'Heavy',
           ),
         ),
         const Text(
@@ -40,6 +41,7 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 40,
             color: Colors.white,
+            fontFamily: 'Heavy',
           ),
         ),
         const SizedBox(height: 80),
@@ -68,6 +70,7 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 40,
             color: Colors.white,
+            fontFamily: 'Heavy',
           ),
           textAlign: TextAlign.center,
         ),
@@ -77,6 +80,7 @@ class SplashScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             color: Colors.white,
+            fontFamily: 'Heavy',
           ),
         ),
         const Expanded(
@@ -120,6 +124,7 @@ class SplashScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   color: Colors.white,
+                  fontFamily: 'Heavy',
                 ),
               ),
               const Text(
@@ -134,6 +139,7 @@ class SplashScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 40,
                   color: Colors.white,
+                  fontFamily: 'Heavy',
                 ),
               ),
               primaryButton(

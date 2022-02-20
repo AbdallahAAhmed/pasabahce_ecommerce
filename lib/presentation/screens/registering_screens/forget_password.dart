@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
+import 'package:pasabahce/constraints/route_string.dart';
 import 'package:pasabahce/presentation/widgets/main_container.dart';
 import 'package:pasabahce/presentation/widgets/primary_button.dart';
 import 'package:pasabahce/presentation/widgets/text_form_field.dart';
 
+// ignore: must_be_immutable
 class ForgetPasswordScreen extends StatelessWidget {
   ForgetPasswordScreen({Key? key}) : super(key: key);
 
   TextEditingController emailController = TextEditingController();
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +32,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       'Forget your password?',
                       style: TextStyle(
                         fontSize: 30,
+                        fontFamily: 'Heavy',
                       ),
                     ),
                     const SizedBox(height: 15),
@@ -53,9 +56,10 @@ class ForgetPasswordScreen extends StatelessWidget {
                     controller: emailController,
                     lableText: 'Email Address',
                     valid: (value) {
-                      if (value!.isEmpty || !value.contains('@')) {
-                        return 'Please, Enter your email address';
-                      }
+                        if (value!.isEmpty || !value.contains('@')) {
+                          return 'Please, Enter your email address';
+                        }
+                        return null;
                     },
                   ),
                 ),
@@ -63,10 +67,10 @@ class ForgetPasswordScreen extends StatelessWidget {
             ),
             primaryButton(
               backgroundColor: MyColors.brown,
-              title: 'RECOVER EMAIL',
+              title: 'RESET MY PASSWORD',
               onTap: (){
                 if(_formKey.currentState!.validate()){
-                  // do somethig
+                  Navigator.of(context).pushNamed(forgetPasswordSentRoute);
                 }
               }
             ),

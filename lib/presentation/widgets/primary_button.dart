@@ -21,6 +21,9 @@ Widget primaryButton(
             style: TextStyle(
               fontSize: 15,
               color: titleColor ?? Colors.white,
+              fontFamily: 'Medium',
+              letterSpacing: 2,
+              fontWeight: FontWeight.bold, 
             ),
           ),
         ),

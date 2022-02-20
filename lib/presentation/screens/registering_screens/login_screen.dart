@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
 import 'package:pasabahce/constraints/route_string.dart';
+import 'package:pasabahce/presentation/widgets/loading.dart';
 import 'package:pasabahce/presentation/widgets/main_container.dart';
 import 'package:pasabahce/presentation/widgets/primary_button.dart';
 import 'package:pasabahce/presentation/widgets/text_form_field.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -48,6 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.black,
+                        fontFamily: 'Heavy',
                       ),
                     ),
                     Text(
@@ -60,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height/2,
+                height: size.height / 2,
                 width: double.infinity,
                 child: Form(
                   key: _formKey,
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value!.isEmpty) {
                             return 'Please fill the username or email';
                           }
+                          return null;
                         },
                       ),
                       buildTextFormField(
@@ -86,12 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value!.isEmpty || value.length < 8) {
                             return 'Please fill the Password';
                           }
+                          return null;
                         },
                         suffix: IconButton(
                           icon: Icon(
-                             visibilityPassword ? Icons.visibility : Icons.visibility_off,
+                            visibilityPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
                               visibilityPassword = !visibilityPassword;
                             });
@@ -121,13 +126,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                           TextButton(
-                            onPressed: () => Navigator.of(context).pushNamed(forgetPasswordRoute),
+                            onPressed: () => Navigator.of(context)
+                                .pushNamed(forgetPasswordRoute),
                             child: const Text(
                               'Forget Password?',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                            ),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                              ),
                             ),
                           ),
                         ],
@@ -137,7 +143,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         title: 'SIGN IN',
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
-                            // do something
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (_) => const LoadingScreen(
+                                    initalRoute: verificationRoute),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -146,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(
-                height: size.height/4,
+                height: size.height / 4,
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -174,7 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.of(context).pushReplacementNamed(registerRoute),
+                          onPressed: () => Navigator.of(context)
+                              .pushReplacementNamed(registerRoute),
                           child: const Text(
                             'Sign Up',
                             style: TextStyle(

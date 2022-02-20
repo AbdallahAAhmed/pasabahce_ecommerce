@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/app_router.dart';
+import 'package:pasabahce/constraints/primary_fonts.dart';
 import 'package:pasabahce/constraints/route_string.dart';
 
-String initialRoute = registerRoute;
+String initialRoute = bottomBarRoute;
 
 void main() {
   runApp(MyApp(appRouter: AppRouter()));
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        fontFamily: MyFonts.bookFont,
       ),
     );
   }

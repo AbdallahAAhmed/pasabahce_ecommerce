@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pasabahce/constraints/primary_colors.dart';
 import 'package:pasabahce/constraints/route_string.dart';
+import 'package:pasabahce/presentation/widgets/loading.dart';
 import 'package:pasabahce/presentation/widgets/main_container.dart';
 import 'package:pasabahce/presentation/widgets/primary_button.dart';
 import 'package:pasabahce/presentation/widgets/text_form_field.dart';
 
 // ignore: must_be_immutable
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -53,6 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       'Create Your Account',
                       style: TextStyle(
                         fontSize: 30,
+                        fontFamily: 'Heavy',
                       ),
                     ),
                     Text(
@@ -83,6 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty) {
                             return 'Please fill the username';
                           }
+                          return null;
                         },
                       ),
                       // const SizedBox(height: 20),
@@ -94,6 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty || !value.contains('@')) {
                             return 'Please fill the email address';
                           }
+                          return null;
                         },
                       ),
                       // const SizedBox(height: 20),
@@ -106,12 +109,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty || value.length < 8) {
                             return 'Please fill the Password';
                           }
+                          return null;
                         },
                         suffix: IconButton(
                           icon: Icon(
-                             visibilityPassword ? Icons.visibility : Icons.visibility_off,
+                            visibilityPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
                               visibilityPassword = !visibilityPassword;
                             });
@@ -127,6 +133,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value!.isEmpty) {
                             return 'Please fill the Phone';
                           }
+                          return null;
                         },
                       ),
                       primaryButton(
@@ -134,7 +141,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           title: 'SIGN UP',
                           onTap: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.of(context).pushNamed(loadingRoute);
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (_) => const LoadingScreen(
+                                      initalRoute: loginRoute),
+                                ),
+                              );
                             }
                           }),
                     ],
@@ -171,8 +183,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(loginRoute),
+                          onPressed: () =>
+                              Navigator.of(context).pushNamed(loginRoute),
                           child: const Text(
                             'Sign In',
                             style: TextStyle(
